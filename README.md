@@ -71,13 +71,6 @@ flutter build apk --release
 
 The APK will be at: `build/app/outputs/flutter-apk/app-release.apk`
 
-## UI/UX Decisions
-
-- **Monochrome palette**: Black (#000000), white (#FFFFFF), subtle grays
-- **Gradients for depth**: No shadows, use gradients for visual hierarchy
-- **DM Mono font**: Technical, precise appearance perfect for numbers
-- **Flat design**: No box shadows, clean borders
-- **Animated interactions**: Press states with border color animation
 
 ## Dependencies
 
