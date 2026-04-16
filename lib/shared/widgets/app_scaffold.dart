@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../core/constants/app_constants.dart';
 
+@deprecated
 class AppScaffold extends StatelessWidget {
   final String title;
   final Widget child;
   final bool showBack;
+  final bool centerTitle;
   final List<Widget>? actions;
 
   const AppScaffold({
@@ -14,13 +16,15 @@ class AppScaffold extends StatelessWidget {
     required this.child,
     this.showBack = true,
     this.actions,
+    this.centerTitle= false
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title, style: AppTextStyles.headingLarge),
+        title: Text(title, style: AppTextStyles.headingLarge, ),
+        centerTitle: centerTitle,
         automaticallyImplyLeading: false,
         leading: showBack
             ? GestureDetector(
@@ -30,15 +34,7 @@ class AppScaffold extends StatelessWidget {
             : null,
         actions: actions,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.pagePadding,
-          ),
-          child: child,
-        ),
-      ),
+      body: SafeArea(child: child),
     );
   }
 }

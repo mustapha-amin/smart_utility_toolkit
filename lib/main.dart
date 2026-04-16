@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_ce/hive.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
+import 'package:smart_utility_toolkit/hive_registrar.g.dart';
 import 'core/theme/app_theme.dart';
 import 'features/home/views/home_view.dart';
 import 'features/converter/views/converter_view.dart';
+import 'features/converter/views/converter_home_view.dart';
+import 'features/todo/views/todo_view.dart';
+import 'features/todo/model/todo_model.dart';
+import 'features/todo/controller/todo_provider.dart';
 import 'core/enums/conversion_category.dart';
 
-void main() => runApp(const UnitConverterApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapters();
+  final todoBox = await Hive.openBox<TodoModel>('todos');
 
-class UnitConverterApp extends StatelessWidget {
-  const UnitConverterApp({super.key});
+  runApp(
+    ProviderScope(
+      overrides: [todoBoxProvider.overrideWithValue(todoBox)],
+      child: const SmartUtilityApp(),
+    ),
+  );
+}
+
+class SmartUtilityApp extends StatelessWidget {
+  const SmartUtilityApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Unit Converter',
+      title: 'Smart Utility Toolkit',
       debugShowCheckedModeBanner: false,
       theme: buildAppTheme(),
       initialRoute: '/',
@@ -21,9 +41,13 @@ class UnitConverterApp extends StatelessWidget {
         switch (settings.name) {
           case '/':
             page = const HomeView();
+          case '/converter_home':
+            page = const ConverterHomeView();
           case '/converter':
             final category = settings.arguments as ConversionCategory;
             page = ConverterView(category: category);
+          case '/todo':
+            page = const TodoView();
           default:
             return null;
         }

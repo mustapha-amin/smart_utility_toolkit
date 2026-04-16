@@ -21,7 +21,7 @@ ThemeData buildAppTheme() {
       backgroundColor: AppColors.black,
       elevation: 0,
       scrolledUnderElevation: 0,
-      centerTitle: false,
+      centerTitle: true,
       titleTextStyle: AppTextStyles.headingLarge,
       iconTheme: const IconThemeData(color: AppColors.white, size: 20),
       systemOverlayStyle: SystemUiOverlayStyle.light,

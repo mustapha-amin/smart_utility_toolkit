@@ -3,8 +3,10 @@ import '../theme/app_colors.dart';
 import '../theme/app_text_styles.dart';
 
 extension ContextX on BuildContext {
-  double get screenWidth  => MediaQuery.sizeOf(this).width;
+  double get screenWidth => MediaQuery.sizeOf(this).width;
   double get screenHeight => MediaQuery.sizeOf(this).height;
+
+  double get bottomPadding => MediaQuery.of(this).viewPadding.bottom;
 
   void showSnack(String message) {
     ScaffoldMessenger.of(this).showSnackBar(
